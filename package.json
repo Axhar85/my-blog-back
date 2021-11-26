@@ -2,7 +2,7 @@
   "name": "my-blog-back",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Axhar85/my-blog-back/issues"
   },
-  "homepage": "https://github.com/Axhar85/my-blog-back#readme"
+  "homepage": "https://github.com/Axhar85/my-blog-back#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
