@@ -12,7 +12,7 @@ const withDB = async(operations, res) => {
             useUnifiedTopology: true,
         });
         const db = client.db("my-data");
-            operations(db);
+            await operations(db);
             client.close();
         } catch(error) {
             res.status(500).json({message: 'Error connecting to db', error});
@@ -31,11 +31,25 @@ app.get('/api/articles/:name', async(req, res) => {
 });
 
 app.post("/api/articles/:name/add-comments", (req, res) => {
+
     const {username, text} = req.body;
     const articleName = req.params.name;
 
-    articlesInfo[articleName].comments.push({username, text});
-    res.status(200).send(articlesInfo[articleName]);
+   withDB(async (db) => {
+       const articlesInfo = await db.collection('articles').findOne({name: articleName});
+       await db.collection('articles').updateOne({name: articleName}, {
+           '$set': {
+               Comments: articlesInfo.Comments.connect({ username, text}),
+
+           },
+         }
+       );
+         const updateArticleInfo = await db
+            .collection("artilces")
+            .findOne({ name: articleName});
+        res.status(200).json(updateArticleInfo)
+   }, res) ;
+    
 })
 
 
