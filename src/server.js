@@ -20,7 +20,7 @@ const articlesInfo = {
 const app = express();
 app.use(bodyparser.json());
 
-app.post("./api.articles/:name/add-comment", (req, res) => {
+app.post("/api/articles/:name/add-comments", (req, res) => {
     const {username, text} = req.body;
     const articleName = req.params.name;
 
