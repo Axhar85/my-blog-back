@@ -12,7 +12,7 @@ app.get('/api/articles/:name', async(req, res) => {
         useNewUrlParser : true,
         useUnifiedTopology: true,
     });
-    const db = client.db("myblog");
+    const db = client.db("my-data");
     const articlesInfo = await db.collection('articles').findOne({name : articleName})
         res.status(200).json(articlesInfo);
         client.close();
